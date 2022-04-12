@@ -6,13 +6,28 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <p><%= notice %></p>
-    <p><%= alert %></p>
+    <nav>
+      <%= link_to 'トップ', root_path %>
+      <% if user_signed_in? %>
+        <%= link_to 'ユーザー編集', edit_user_registration_path %>
+        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'ログイン', new_user_session_path %>
+        <%= link_to 'アカウント登録', new_user_registration_path %>
+      <% end %>
+    </nav>
+
+    <% flash.each do |_name, msg| %>
+      <p><%= msg %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
