@@ -1,0 +1,27 @@
+<h1>ユーザー一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>confirmed_at</th>
+      <th>confirmation_sent_at</th>
+      <th>unconfirmed_email</th>
+      <th>confirmed?</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= l(user.confirmed_at) if user.confirmed_at %></td>
+        <td><%= l(user.confirmation_sent_at) if user.confirmation_sent_at %></td>
+        <td><%= user.unconfirmed_email %></td>
+        <td><%= user.confirmed? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
