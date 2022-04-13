@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+:root {
+  --bg: #fff;
+  --accent-bg: #f5f7ff;
+  --text: #212121;
+  --text-light: #585858;
+  --border: #d8dae1;
+  --accent: #0d47a1;
+  --accent-light: #90caf9;
+  --code: #d81b60;
+  --preformatted: #444;
+  --disabled: #efefef;
+}
+
+img,
+video {
+  opacity: unset;
+}
+
+table {
+  grid-column: 1 / -1;
+  max-width: 1200px;
+  margin: 1rem auto;
+}
