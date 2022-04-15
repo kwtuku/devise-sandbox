@@ -67,4 +67,6 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
+  Faker::Config.locale = :en
+  OmniAuth.config.test_mode = true
 end
