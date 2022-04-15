@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :lockable, :timeoutable, :trackable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: %i[github]
+  validates :provider, inclusion: { in: %w[github] }, allow_nil: true
+  validates :uid, uniqueness: { scope: :provider }, allow_nil: true
 
   def self.from_omniauth(auth)
     where(uid: auth.uid, provider: auth.provider).first_or_create do |user|
