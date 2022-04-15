@@ -9,6 +9,8 @@
       <th>confirmation_sent_at</th>
       <th>unconfirmed_email</th>
       <th>confirmed?</th>
+      <th>Provider</th>
+      <th>UID</th>
     </tr>
   </thead>
 
@@ -21,6 +23,8 @@
         <td><%= l(user.confirmation_sent_at) if user.confirmation_sent_at %></td>
         <td><%= user.unconfirmed_email %></td>
         <td><%= user.confirmed? %></td>
+        <td><%= user.provider %></td>
+        <td><%= user.uid %></td>
       </tr>
     <% end %>
   </tbody>

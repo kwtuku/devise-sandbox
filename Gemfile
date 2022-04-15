@@ -27,6 +27,8 @@ gem 'turbolinks', '~> 5'
 
 gem 'devise'
 gem 'devise-i18n'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection'
 gem 'rails-i18n'
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -36,6 +38,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
+  gem 'dotenv-rails'
   gem 'rspec-rails'
 end
 
@@ -59,6 +62,7 @@ end
 group :test do
   gem 'capybara'
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
