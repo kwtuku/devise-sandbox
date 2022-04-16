@@ -28,6 +28,21 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_content 'メールアドレスの本人確認が必要です。'
       end
     end
+
+    context 'with Google' do
+      before do
+        OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(Faker::Omniauth.google)
+        Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
+        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_oauth2]
+      end
+
+      it 'works' do
+        visit root_path
+        click_link 'アカウント登録'
+        expect { click_link 'GoogleOauth2でログイン' }.to change(User, :count).by(1)
+        expect(page).to have_content 'メールアドレスの本人確認が必要です。'
+      end
+    end
   end
 
   describe 'signs in' do
@@ -56,6 +71,22 @@ RSpec.describe 'Users', type: :system do
         visit root_path
         click_link 'ログイン'
         expect { click_link 'GitHubでログイン' }.to change(User, :count).by(0)
+        expect(page).to have_content user.email
+      end
+    end
+
+    context 'with Google' do
+      let!(:user) { create(:user, :confirmed, :from_google) }
+
+      before do
+        OmniAuth.config.mock_auth[:google_oauth2].info.email = user.email
+        OmniAuth.config.mock_auth[:google_oauth2].uid = user.uid
+      end
+
+      it 'works' do
+        visit root_path
+        click_link 'ログイン'
+        expect { click_link 'GoogleOauth2でログイン' }.to change(User, :count).by(0)
         expect(page).to have_content user.email
       end
     end

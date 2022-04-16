@@ -28,6 +28,7 @@ gem 'turbolinks', '~> 5'
 gem 'devise'
 gem 'devise-i18n'
 gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'rails-i18n'
 
