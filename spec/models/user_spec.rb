@@ -19,11 +19,23 @@ RSpec.describe User, type: :model do
       it { is_expected.to validate_inclusion_of(:provider).in_array(%w[google_oauth2]).allow_nil }
       it { is_expected.to validate_uniqueness_of(:uid).scoped_to(:provider).allow_nil.ignoring_case_sensitivity }
     end
+
+    context 'when from Twitter' do
+      subject { build(:user, :from_twitter) }
+
+      it { is_expected.to validate_inclusion_of(:provider).in_array(%w[twitter]).allow_nil }
+      it { is_expected.to validate_uniqueness_of(:uid).scoped_to(:provider).allow_nil.ignoring_case_sensitivity }
+    end
   end
 
   describe '.from_omniauth(auth)' do
     let(:github_auth) { OmniAuth::AuthHash.new(Faker::Omniauth.github) }
     let(:google_auth) { OmniAuth::AuthHash.new(Faker::Omniauth.google) }
+    let(:twitter_auth) do
+      auth = OmniAuth::AuthHash.new(Faker::Omniauth.twitter)
+      auth.info.email = "#{SecureRandom.hex(10)}@example.com"
+      auth
+    end
 
     context 'when new user from GitHub' do
       it 'increases User count' do
@@ -66,6 +78,28 @@ RSpec.describe User, type: :model do
 
       it 'returns user' do
         expect(described_class.from_omniauth(google_auth)).to eq user
+      end
+    end
+
+    context 'when new user from Twitter' do
+      it 'increases User count' do
+        expect { described_class.from_omniauth(twitter_auth) }.to change(described_class, :count).by(1)
+      end
+
+      it 'returns user' do
+        expect(described_class.from_omniauth(twitter_auth)).to be_an_instance_of described_class
+      end
+    end
+
+    context 'when existing user from Twitter' do
+      let!(:user) { create(:user, :from_twitter, email: twitter_auth.info.email, uid: twitter_auth.uid) }
+
+      it 'does not increase User count' do
+        expect { described_class.from_omniauth(twitter_auth) }.to change(described_class, :count).by(0)
+      end
+
+      it 'returns user' do
+        expect(described_class.from_omniauth(twitter_auth)).to eq user
       end
     end
   end

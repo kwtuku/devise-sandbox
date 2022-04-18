@@ -17,5 +17,10 @@ FactoryBot.define do
       provider { 'google_oauth2' }
       uid { SecureRandom.random_number(1 << 64) }
     end
+
+    trait :from_twitter do
+      provider { 'twitter' }
+      uid { SecureRandom.random_number(1 << 64) }
+    end
   end
 end
