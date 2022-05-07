@@ -32,6 +32,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-twitter'
 gem 'rails-i18n'
+gem 'tailwindcss-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -54,6 +55,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  gem 'guard'
+  gem 'guard-process'
   gem 'letter_opener_web'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
