@@ -40,6 +40,18 @@ services:
       POSTGRES_PASSWORD: password
       TZ: Asia/Tokyo
 
+  tailwindcss:
+    build: .
+    command: bundle exec guard --force-polling
+    volumes:
+      - .:/myapp:cached
+      - rails_cache:/myapp/tmp/cache:cached
+      - node_modules:/myapp/node_modules:cached
+      - bundle_cache:/usr/local/bundle:cached
+      - yarn_cache:/usr/local/share/.cache/yarn/v6:cached
+    stdin_open: true
+    tty: true
+
   webpacker:
     build: .
     command: ./bin/webpack-dev-server
