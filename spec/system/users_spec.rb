@@ -7,7 +7,7 @@ RSpec.describe 'Users', type: :system do
         visit root_path
         click_link 'アカウント登録'
         fill_in 'Eメール', with: 'user@example.com'
-        fill_in 'パスワード', with: 'password'
+        fill_in 'パスワード（6字以上）', with: 'password'
         fill_in 'パスワード（確認用）', with: 'password'
         expect { click_button 'アカウント登録' }.to change(User, :count).by(1)
         expect(page).to have_content '本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。'
