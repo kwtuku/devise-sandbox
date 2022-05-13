@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
     <title>Myapp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,28 +11,63 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <nav>
-      <%= link_to 'トップ', root_path %>
-      <%= link_to 'ユーザー一覧', users_path %>
-      <% if user_signed_in? %>
-        <%= link_to 'ユーザー編集', edit_user_registration_path %>
-        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'ログイン', new_user_session_path %>
-        <%= link_to 'アカウント登録', new_user_registration_path %>
-      <% end %>
+  <body class="flex flex-col min-h-screen <%= 'static' if flash.any? %>">
+    <nav class="navbar bg-base-300 gap-2">
+      <div class="flex-none">
+        <%= link_to 'トップ', root_path, class: 'btn btn-ghost normal-case text-xl' %>
+      </div>
+      <div class="flex-1">
+        <ul class="menu menu-horizontal p-0">
+          <li><%= link_to 'ユーザー一覧', users_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to 'ユーザー編集', edit_user_registration_path %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="flex-none gap-2">
+        <% if user_signed_in? %>
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-ghost' %>
+        <% else %>
+          <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-ghost' %>
+          <%= link_to 'アカウント登録', new_user_registration_path, class: 'btn btn-primary' %>
+        <% end %>
+      </div>
     </nav>
 
-    <% flash.each do |_name, msg| %>
-      <p><%= msg %></p>
+    <% flash.each do |name, msg| %>
+      <div class="absolute top-20 right-10">
+        <div class="alert <%= name == 'alert' ? 'alert-error' : 'alert-success' %> shadow-lg px-8">
+          <div class="font-medium text-white">
+            <% if name == 'alert' %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <% else %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <% end %>
+            <span><%= msg %></span>
+          </div>
+        </div>
+      </div>
     <% end %>
 
-    <%= yield %>
+    <% if content_for?(:title) %>
+      <header>
+        <div class="px-6 py-4">
+          <h1 class="text-2xl font-bold text-gray-900"><%= content_for(:title) %></h1>
+        </div>
+      </header>
+    <% end %>
 
-    <footer>
-      <%= link_to 'プライバシーポリシー', privacy_path %>
-      <%= link_to '利用規約', terms_path %>
+    <main class="flex-grow">
+      <div class="px-8 py-6">
+        <%= yield %>
+      </div>
+    </main>
+
+    <footer class="footer footer-center p-4 bg-base-200 text-base-content">
+      <div class="grid grid-flow-col gap-4">
+        <%= link_to 'プライバシーポリシー', privacy_path, class: 'link link-hover' %>
+        <%= link_to '利用規約', terms_path, class: 'link link-hover' %>
+      </div>
     </footer>
   </body>
 </html>

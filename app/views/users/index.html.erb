@@ -1,31 +1,33 @@
-<h1>ユーザー一覧</h1>
+<% provide(:title, 'ユーザー一覧') %>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Email</th>
-      <th>confirmed_at</th>
-      <th>confirmation_sent_at</th>
-      <th>unconfirmed_email</th>
-      <th>confirmed?</th>
-      <th>Provider</th>
-      <th>UID</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
+<div class="overflow-x-auto">
+  <table class="table table-zebra w-full">
+    <thead>
       <tr>
-        <td><%= user.id %></td>
-        <td><%= user.email %></td>
-        <td><%= l(user.confirmed_at) if user.confirmed_at %></td>
-        <td><%= l(user.confirmation_sent_at) if user.confirmation_sent_at %></td>
-        <td><%= user.unconfirmed_email %></td>
-        <td><%= user.confirmed? %></td>
-        <td><%= user.provider %></td>
-        <td><%= user.uid %></td>
+        <th class="normal-case">ID</th>
+        <th class="normal-case">Email</th>
+        <th class="normal-case">confirmed_at</th>
+        <th class="normal-case">confirmation_sent_at</th>
+        <th class="normal-case">unconfirmed_email</th>
+        <th class="normal-case">confirmed?</th>
+        <th class="normal-case">Provider</th>
+        <th class="normal-case">UID</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= l(user.confirmed_at) if user.confirmed_at %></td>
+          <td><%= l(user.confirmation_sent_at) if user.confirmation_sent_at %></td>
+          <td><%= user.unconfirmed_email %></td>
+          <td><%= user.confirmed? %></td>
+          <td><%= user.provider %></td>
+          <td><%= user.uid %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

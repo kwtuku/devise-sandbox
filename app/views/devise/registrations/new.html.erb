@@ -1,0 +1,36 @@
+<div class="hero py-10">
+  <div class="hero-content w-full">
+    <div class="basis-5/12 self-start">
+      <h1 class="text-2xl font-bold"><%= t('.sign_up') %></h1>
+    </div>
+    <div class="basis-7/12">
+      <div class="max-w-sm mx-auto">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render 'devise/shared/error_messages', resource: resource %>
+
+          <div class="form-control w-full">
+            <%= f.label :email, class: 'label' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'input input-bordered w-full' %>
+          </div>
+
+          <div class="form-control w-full">
+            <%= f.label :password, "#{t('activerecord.attributes.user.password')}#{t('devise.shared.minimum_password_length', count: @minimum_password_length) if @minimum_password_length}", class: 'label' %>
+            <%= f.password_field :password, autocomplete: 'new-password', class: 'input input-bordered w-full' %>
+          </div>
+
+          <div class="form-control w-full">
+            <%= f.label :password_confirmation, class: 'label' %>
+            <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'input input-bordered w-full' %>
+          </div>
+
+          <div class="form-control mt-6">
+            <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+
+        <%= render 'devise/shared/links' %>
+      </div>
+    </div>
+  </div>
+</div>
+
