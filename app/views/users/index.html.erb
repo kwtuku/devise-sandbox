@@ -19,13 +19,13 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
-          <td><%= user.email %></td>
+          <td><%= partially_hidden_email(user.email) %></td>
           <td><%= l(user.confirmed_at) if user.confirmed_at %></td>
           <td><%= l(user.confirmation_sent_at) if user.confirmation_sent_at %></td>
-          <td><%= user.unconfirmed_email %></td>
+          <td><%= partially_hidden_email(user.unconfirmed_email) if user.unconfirmed_email %></td>
           <td><%= user.confirmed? %></td>
           <td><%= user.provider %></td>
-          <td><%= user.uid %></td>
+          <td><%= partially_hidden_string(user.uid) if user.uid %></td>
         </tr>
       <% end %>
     </tbody>
