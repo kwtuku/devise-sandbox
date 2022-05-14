@@ -6,6 +6,8 @@
         <p class="py-6"><%= current_user.email %>さん</p>
       <% else %>
         <h1 class="text-5xl font-bold">ようこそ！</h1>
+        <p class="py-6">Deviseの検証用のアプリです。EメールもしくはGitHub, Google, Twitterアカウントでログインができます。</p>
+        <%= link_to 'アカウント登録', new_user_registration_path, class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>

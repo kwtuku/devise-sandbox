@@ -5,7 +5,9 @@ RSpec.describe 'Users', type: :system do
     context 'with email' do
       it 'works' do
         visit root_path
-        click_link 'アカウント登録'
+        within '.navbar' do
+          click_link 'アカウント登録'
+        end
         fill_in 'Eメール', with: 'user@example.com'
         fill_in 'パスワード（6字以上）', with: 'password'
         fill_in 'パスワード（確認用）', with: 'password'
@@ -23,7 +25,9 @@ RSpec.describe 'Users', type: :system do
 
       it 'works' do
         visit root_path
-        click_link 'アカウント登録'
+        within '.navbar' do
+          click_link 'アカウント登録'
+        end
         expect { click_link 'GitHubでログイン' }.to change(User, :count).by(1)
         expect(page).to have_content 'メールアドレスの本人確認が必要です。'
       end
@@ -38,7 +42,9 @@ RSpec.describe 'Users', type: :system do
 
       it 'works' do
         visit root_path
-        click_link 'アカウント登録'
+        within '.navbar' do
+          click_link 'アカウント登録'
+        end
         expect { click_link 'GoogleOauth2でログイン' }.to change(User, :count).by(1)
         expect(page).to have_content 'メールアドレスの本人確認が必要です。'
       end
@@ -54,7 +60,9 @@ RSpec.describe 'Users', type: :system do
 
       it 'works' do
         visit root_path
-        click_link 'アカウント登録'
+        within '.navbar' do
+          click_link 'アカウント登録'
+        end
         expect { click_link 'Twitterでログイン' }.to change(User, :count).by(1)
         expect(page).to have_content 'メールアドレスの本人確認が必要です。'
       end
